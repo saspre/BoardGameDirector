@@ -22,11 +22,11 @@ public class GameManager {
         CounterManager.getInstance().put("draws", new Counter(true,0));
 
 
-        GameAction lastActions = new GameAction("Discard to 7 Card. \n Infect cities", new EndTurnEvent());
+        GameAction lastActions = new GameAction("- Discard to 7 cards \n- Infect cities", new EndTurnEvent());
         Decision isSecondDrawDecision = new Decision(new CounterCondition("draws", CounterCondition.Condition.GTE,2));
-        GameAction pull1cardAction  = new GameAction("Pull 1 card from the player deck",
+        GameAction pull1cardAction  = new GameAction("- Draw 1 card from the player deck",
                                                           new Decision("Is Epidemic?",
-                                                                    new GameAction("Raise Inf. Rate \nDraw bottom IC \nShuffle Deck",isSecondDrawDecision),
+                                                                    new GameAction("- Raise Inf. Rate \n- Draw bottom IC \n- Shuffle Deck",isSecondDrawDecision),
                                                                   isSecondDrawDecision),
                                                           new CounterAction("draws", CounterAction.Action.INCREMENT)
 
