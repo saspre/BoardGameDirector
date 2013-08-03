@@ -1,5 +1,7 @@
 package com.dilph.bgd.engine;
 
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: pseudo
@@ -11,6 +13,9 @@ public class GameManager {
 
 
     Turn  turn;
+    private ArrayList<Player> players;
+    private Player currentPlayer;
+    private int currentPlayerIndex;
 
     public void start()
     {
@@ -19,9 +24,9 @@ public class GameManager {
 
         GameAction lastActions = new GameAction("Discard to 7 Card. \n Infect cities", new EndTurnEvent());
         Decision isSecondDrawDecision = new Decision(new CounterCondition("draws", CounterCondition.Condition.GTE,2));
-        GameAction   pull1cardAction  = new GameAction("Pull 1 card from the player deck",
+        GameAction pull1cardAction  = new GameAction("Pull 1 card from the player deck",
                                                           new Decision("Is Epidemic?",
-                                                                    new GameAction("Raise Inf. Rate \nDraw buttom IC \nShuffle Deck",isSecondDrawDecision),
+                                                                    new GameAction("Raise Inf. Rate \nDraw bottom IC \nShuffle Deck",isSecondDrawDecision),
                                                                   isSecondDrawDecision),
                                                           new CounterAction("draws", CounterAction.Action.INCREMENT)
 
@@ -31,8 +36,14 @@ public class GameManager {
         isSecondDrawDecision.setTrueTurnEvent(lastActions);
         isSecondDrawDecision.setFalseTurnEvent(pull1cardAction);
 
+        players = new ArrayList<Player>();
 
+        players.add(new Player("Multegris"));
+        players.add(new Player("Pseudo"));
+        players.add(new Player("Bondo"));
+        players.add(new Player("Bender"));
 
+        currentPlayer = players.get(0);
         turn = new Turn( new GameAction("Do 4 Actions", pull1cardAction) );
 
         turn.start();
@@ -48,12 +59,21 @@ public class GameManager {
         turn.next(response);
     }
 
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
     public TurnEvent getCurrentEvent()
     {
         TurnEvent current = turn.getCurrentTurnEvent();
-        if(current == null)
+
+
+        if(current == null)  // Means next turn
         {
             turn.reset();
+            currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+            currentPlayer = players.get(currentPlayerIndex);
+
         }
 
         while(current instanceof Decision && !((Decision)current).requiresHumanInteraction())
@@ -64,5 +84,11 @@ public class GameManager {
 
 
         return turn.getCurrentTurnEvent();
+    }
+
+    public void endTurn() {
+        turn.reset();
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+        currentPlayer = players.get(currentPlayerIndex);
     }
 }
