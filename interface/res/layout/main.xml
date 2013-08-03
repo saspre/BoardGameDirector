@@ -25,7 +25,7 @@
     </GridLayout>
     <TextView
             android:layout_width="fill_parent"
-            android:layout_height="184dp"
+            android:layout_height="300dp"
             android:text="Proceed"
             android:id="@+id/messageField" android:layout_gravity="center" android:singleLine="false"
             android:textSize="30dp" android:textIsSelectable="true" android:textAlignment="center"
