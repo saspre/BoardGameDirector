@@ -7,11 +7,15 @@ package com.dilph.bgd.engine;
  * Time: 12:40 PM
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Event to represent the end of a turn
+ */
 public class EndTurnEvent extends BaseEvent implements TurnEvent {
 
 
     public EndTurnEvent() {
-        super("Turn ended.");
+        super("Turn ended");
     }
 
     @Override

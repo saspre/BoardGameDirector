@@ -7,6 +7,10 @@ package com.dilph.bgd.engine;
  * Time: 11:58 AM
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * A TurnEvent represents events during a turn, such as GameActions and Decisions (or ifs).
+ */
 public interface TurnEvent {
 
     String getMessage();

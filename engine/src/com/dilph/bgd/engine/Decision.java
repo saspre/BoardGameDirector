@@ -9,7 +9,7 @@ package com.dilph.bgd.engine;
  */
 
 /**
- * A Decision represents something which the user must do.
+ * A Decision represents something  that should be determined either by the counter and conditions or the player.
  */
 public class Decision extends BaseEvent implements TurnEvent {
 

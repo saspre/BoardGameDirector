@@ -7,6 +7,10 @@ package com.dilph.bgd.engine;
  * Time: 11:09 AM
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Represents a turn. Each player has a turn.
+ */
 public class Turn {
 
 

@@ -7,6 +7,10 @@ package com.dilph.bgd.engine;
  * Time: 5:16 PM
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * A condition which can be evaluated against a counter
+ */
 public class CounterCondition {
     enum Condition { EQUAL, LTE,GTE, LT, GT }
     Condition condition;
@@ -26,10 +30,14 @@ public class CounterCondition {
          {
              case EQUAL:
                 return otherValue == value;
-
+             case LTE:
+                 return otherValue <= value;
              case GTE:
                 return otherValue >= value;
-
+             case LT:
+                 return otherValue < value;
+             case GT:
+                 return otherValue > value;
              default:
                  return false;
          }

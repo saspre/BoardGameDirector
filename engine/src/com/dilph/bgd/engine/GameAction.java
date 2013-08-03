@@ -7,6 +7,10 @@ package com.dilph.bgd.engine;
  * Time: 11:10 AM
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ *  An action represents something a player most do.
+ */
 public class GameAction extends BaseEvent implements TurnEvent {
 
 
