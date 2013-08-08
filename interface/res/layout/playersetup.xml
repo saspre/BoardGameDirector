@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Player"
+            android:id="@+id/addPlayerBtn"
+            android:onClick="addPlayer"
+            android:layout_alignParentBottom="true"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Game"
+            android:id="@+id/saveBtn"
+            android:onClick="save"
+            android:singleLine="true"
+            android:layout_alignTop="@+id/addPlayerBtn" android:layout_marginRight="0dp"
+            android:layout_alignParentEnd="false" android:layout_alignParentRight="true"/>
+
+    <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/playerList"
+            android:layout_below="@+id/insNames"
+            android:layout_above="@+id/addPlayerBtn"
+            android:descendantFocusability="afterDescendants"
+        />
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ins_names"
+            android:id="@+id/insNames" android:layout_gravity="center"
+            android:layout_marginTop="0dp"
+            android:layout_alignParentTop="true"
+            android:gravity="center"/>
+</RelativeLayout>

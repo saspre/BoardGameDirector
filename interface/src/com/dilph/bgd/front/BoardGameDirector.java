@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 import com.dilph.bgd.engine.Decision;
 import com.dilph.bgd.engine.GameManager;
@@ -27,11 +28,15 @@ public class BoardGameDirector extends Activity {
         btnViewSwitcher = ((ViewSwitcher)findViewById(R.id.viewSwitcher));        // We will need this often, so let's spare the lookup.
         gameManager = new GameManager();
         gameManager.start();
+        Toast.makeText(this, "Click anywhere for next action", Toast.LENGTH_SHORT).show();
         updateMessage();
     }
 
     public void proceedAction(View view)
     {
+        if(gameManager.getCurrentEvent() instanceof Decision){
+            return;
+        }
         gameManager.proceed();
         updateMessage();
     }
@@ -41,32 +46,40 @@ public class BoardGameDirector extends Activity {
         gameManager.response(true);
         updateMessage();
     }
-    public void responseFalse(View view)
-    {
-        gameManager.response(false);
-        updateMessage();
-    }
+
 
     private void updateMessage()
     {
-        ((TextView)findViewById(R.id.messageField)).setText(gameManager.getCurrentEvent().getMessage());
+        String textMessage =  gameManager.getCurrentEvent().getMessage();
+        ((TextView)findViewById(R.id.messageField)).setText(textMessage);
         if(gameManager.getCurrentEvent() instanceof Decision)
         {
-            if(btnViewSwitcher.getCurrentView().getId() == R.id.actionBtnView )
-            {
-                btnViewSwitcher.showNext();
-            }
-        }  else
-        {
-            // either GameAction or EndOfTurnEvent
-            if(btnViewSwitcher.getCurrentView().getId() == R.id.decisionBtnView )
-            {
-                btnViewSwitcher.showNext();
-            }
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            gameManager.response(true);
+
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            gameManager.response(false);
+
+                            break;
+                    }
+                    updateMessage();
+
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(textMessage).setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show();
+
+        }  else {
+
+            ((TextView)findViewById(R.id.currentPlayerText)).setText(gameManager.getCurrentPlayer().getName());
         }
-
-        ((TextView)findViewById(R.id.currentPlayerText)).setText(gameManager.getCurrentPlayer().getName());
-
     }
 
     public void backToMenu(final View view)
@@ -76,7 +89,7 @@ public class BoardGameDirector extends Activity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        Intent myIntent=new Intent(view.getContext(),MenuActivity.class);
+                        Intent myIntent=new Intent(view.getContext(),MainMenu.class);
                         startActivity(myIntent);
                         finish();
                         break;

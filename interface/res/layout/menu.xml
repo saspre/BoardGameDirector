@@ -3,15 +3,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent" android:visibility="visible" android:longClickable="false"
+              android:divider="#cecece" android:gravity="fill_horizontal" android:baselineAligned="false"
+              android:showDividers="middle" android:dividerPadding="2dp">
 
     <Space
             android:layout_width="20px"
             android:layout_height="20px"
-            android:id="@+id/space" android:layout_gravity="center"/>
-    <Button
+            android:id="@+id/space" android:layout_gravity="center" android:visibility="visible"
+            android:layout_marginLeft="1dp"/>
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Game"
-            android:id="@+id/newGameBtn" android:layout_gravity="center" android:onClick="newGame"/>
+            android:id="@+id/newGameBtn" android:layout_gravity="center" android:onClick="newGame"
+            android:clickable="true" android:textSize="40dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textView" android:layout_gravity="center" android:textSize="40dp"/>
 </LinearLayout>
