@@ -4,4 +4,5 @@
     <string name="end_turn">End Turn</string>
     <string name="ins_names">Insert names</string>
     <string name="playerlist">playerlist</string>
+    <string name="sharedpreffile">boardgamedirectorpref</string>
 </resources>

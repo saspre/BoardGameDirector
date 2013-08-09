@@ -19,7 +19,7 @@ import java.util.HashSet;
  * User: pseudo
  * Date: 8/4/13
  * Time: 11:10 PM
- * To change this template use File | Settings | File Templates.
+ * Activity to manage the players before starting a game.
  */
 public class PlayerManagement extends Activity {
 
@@ -70,14 +70,27 @@ public class PlayerManagement extends Activity {
 
     public void save(View view)
     {
+        HashSet<String> finalPlayerSet = new HashSet<String>();
+        for(String pl : mAdapter.getPlayerNames())
+        {
+             if(!pl.isEmpty())    {
+                finalPlayerSet.add(pl);
+             }
+        }
+        if(finalPlayerSet.isEmpty())
+        {
+            Toast.makeText(this,"You need to add at least one player!",Toast.LENGTH_LONG);
+            return;
 
+        }
         // We save the player list in the settings, such that next time the app is loaded the player list remains (assuming you often play the same people together)
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.sharedpreffile),Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putStringSet(getString(R.string.playerlist), new HashSet<String>(mAdapter.getPlayerNames()));
+        editor.putStringSet(getString(R.string.playerlist), finalPlayerSet);
         editor.commit();
 
-        Intent myIntent=new Intent(view.getContext(),BoardGameDirector.class);
+
+        Intent myIntent = new Intent(view.getContext(), BoardGameDirector.class);
         startActivity(myIntent);
         finish();
     }

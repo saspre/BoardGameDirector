@@ -2,8 +2,10 @@ package com.dilph.bgd.front;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -11,6 +13,10 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 import com.dilph.bgd.engine.Decision;
 import com.dilph.bgd.engine.GameManager;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BoardGameDirector extends Activity {
 
@@ -26,7 +32,17 @@ public class BoardGameDirector extends Activity {
         setContentView(R.layout.main);
 
         btnViewSwitcher = ((ViewSwitcher)findViewById(R.id.viewSwitcher));        // We will need this often, so let's spare the lookup.
+
+
+
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.sharedpreffile), Context.MODE_PRIVATE);
+      //  String defaultValue = this.getResources().getString(com.dilph.bgd.engine.R.string.playerlist);
+        Set<String> players = sharedPref.getStringSet(getString(com.dilph.bgd.engine.R.string.playerlist), new HashSet<String>());
+
+
+
         gameManager = new GameManager();
+        gameManager.setPlayers(players);
         gameManager.start();
         Toast.makeText(this, "Click anywhere for next action", Toast.LENGTH_SHORT).show();
         updateMessage();

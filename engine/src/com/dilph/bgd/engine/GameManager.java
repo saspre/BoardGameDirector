@@ -1,6 +1,10 @@
 package com.dilph.bgd.engine;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,14 +42,18 @@ public class GameManager {
         isSecondDrawDecision.setTrueTurnEvent(lastActions);
         isSecondDrawDecision.setFalseTurnEvent(pull1cardAction);
 
-        players = new ArrayList<Player>();
 
-        players.add(new Player("Multegris"));
+
+
+
+     //   players = new ArrayList<Player>();
+
+     /*   players.add(new Player("Multegris"));
         players.add(new Player("Pseudo"));
         players.add(new Player("Bondo"));
-        players.add(new Player("Bender"));
+        players.add(new Player("Bender"));   */
 
-        currentPlayer = players.get(0);
+
         turn = new Turn( new GameAction("Do 4 Actions", pull1cardAction) );
 
         turn.start();
@@ -92,5 +100,15 @@ public class GameManager {
         turn.reset();
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         currentPlayer = players.get(currentPlayerIndex);
+    }
+
+    public void setPlayers(Set<String> pls)
+    {
+        players = new ArrayList<Player>();
+        for(String pl: pls)
+        {
+            players.add(new Player(pl));
+        }
+        currentPlayer = players.get(0);
     }
 }
