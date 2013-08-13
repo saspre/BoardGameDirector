@@ -39,4 +39,14 @@
             android:layout_marginTop="0dp"
             android:layout_alignParentTop="true"
             android:gravity="center"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear"
+            android:id="@+id/clearBtn"
+            android:layout_centerHorizontal="true"
+            android:layout_alignTop="@+id/addPlayerBtn"
+            android:clickable="true"
+            android:onClick="clearPlayers"/>
 </RelativeLayout>
